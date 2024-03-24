@@ -2,7 +2,7 @@ package v1
 
 import "github.com/gin-gonic/gin"
 
-func RegisterRouter(router *gin.Engine) {
+func RegisterRouter(router *gin.Engine) *gin.RouterGroup {
 	// 接口版本管理
 	group := router.Group("/api/v1")
 	{
@@ -11,4 +11,6 @@ func RegisterRouter(router *gin.Engine) {
 
 		group.GET("/npc/info", GetNpcInfo)
 	}
+
+	return group
 }

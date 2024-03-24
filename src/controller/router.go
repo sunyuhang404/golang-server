@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"bs-server/src/controller/auth"
 	v1 "bs-server/src/controller/v1"
 	"bs-server/src/middleware"
 	"bs-server/src/response"
@@ -22,8 +23,12 @@ func InitRouter() *gin.Engine {
 		context.JSON(http.StatusOK, response.OK.WithData("pong"))
 	})
 
+	// 权限接口
+	auth.RegisterAuthRouter(router)
+
 	// 接口版本管理，可能需要多个版本的接口并存
-	v1.RegisterRouter(router)
+	v1Group := v1.RegisterRouter(router)
+	v1Group.Use(middleware.JWT())
 
 	return router
 }
