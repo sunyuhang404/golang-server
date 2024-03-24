@@ -5,15 +5,18 @@ import (
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 	"log"
+	"time"
 )
 
 var db *gorm.DB
 
 type Model struct {
-	ID         int `gorm:"primary_key" json:"id"`
-	CreatedOn  int `json:"created_on"`
-	ModifiedOn int `json:"modified_on"`
+	ID         int       `gorm:"primary_key" json:"id"`
+	CreatedOn  time.Time `gorm:"autoCreateTime" json:"created_on"`
+	ModifiedOn time.Time `gorm:"autoUpdateTime:milli" json:"modified_on"`
+	DeleteOn   time.Time `gorm:"autoUpdateTime:milli" json:"delete_on"`
 }
 
 func InitModel() {
@@ -27,13 +30,15 @@ func InitModel() {
 		util.DBName))
 
 	db, err = gorm.Open(dsn, &gorm.Config{
-		SkipDefaultTransaction: true, // 跳过默认事物
+		//SkipDefaultTransaction: true,                                       // 跳过默认事物
+		NamingStrategy: schema.NamingStrategy{SingularTable: true}, // 表名不要默认追加s
 	})
 
 	if err != nil {
 		log.Printf("error")
 	}
 
+	fmt.Println("init model success")
 }
 
 func CloseDB() {

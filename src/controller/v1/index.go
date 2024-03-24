@@ -6,6 +6,9 @@ func RegisterRouter(router *gin.Engine) {
 	// 接口版本管理
 	group := router.Group("/api/v1")
 	{
-		group.GET("/model/list")
+		// 查询 npc 列表
+		group.GET("/npc/list", GetNpcList)
+
+		group.GET("/npc/info", GetNpcInfo)
 	}
 }

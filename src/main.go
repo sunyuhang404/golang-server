@@ -2,6 +2,7 @@ package main
 
 import (
 	"bs-server/src/controller"
+	"bs-server/src/model"
 	"bs-server/src/response"
 	"bs-server/src/util"
 	"fmt"
@@ -18,7 +19,8 @@ type Login struct {
 func main() {
 	fmt.Printf("main")
 
-	//util.Init()
+	util.Setup()
+	model.InitModel()
 
 	router := controller.InitRouter()
 
