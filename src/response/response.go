@@ -52,7 +52,8 @@ func response(code int, message string) *Response {
 
 // 错误码
 var (
-	OK       = response(200, "ok")   // 成功
-	Error    = response(0, "error")  // 失败
-	AuthFail = response(401, "登录过期") // 登录过期
+	OK          = response(200, "ok")   // 成功
+	Error       = response(0, "error")  // 失败
+	AuthFail    = response(401, "登录过期") // 登录过期
+	ErrorParams = response(0, "error")  // 入参错误
 )
