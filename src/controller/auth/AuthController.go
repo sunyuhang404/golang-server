@@ -44,6 +44,8 @@ func Login(context *gin.Context) {
 				data["token"] = token
 				context.JSON(http.StatusOK, response.OK.WithData(data))
 			}
+		} else {
+			context.JSON(http.StatusOK, response.NotFound.WithMsg("用户未找到"))
 		}
 	} else {
 		var errList []interface{} = make([]interface{}, 0)
@@ -53,7 +55,7 @@ func Login(context *gin.Context) {
 			errList = append(errList, err.Message)
 		}
 
-		context.JSON(http.StatusOK, response.Error.WithData(errList))
+		context.JSON(http.StatusOK, response.Error.WithMsg("失败"))
 	}
 }
 

@@ -56,4 +56,5 @@ var (
 	Error       = response(0, "error")  // 失败
 	AuthFail    = response(401, "登录过期") // 登录过期
 	ErrorParams = response(0, "error")  // 入参错误
+	NotFound    = response(0, "error")  // 未找到
 )
