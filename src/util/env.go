@@ -29,7 +29,7 @@ var (
 func Setup() {
 	var err error
 
-	Cfg, err := ini.Load("src/config/app.ini")
+	Cfg, err := ini.Load("config/app.ini")
 	if err != nil {
 		log.Fatalf("Fail to parse 'config/app.ini': %v", err)
 	}

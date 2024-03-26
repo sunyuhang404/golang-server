@@ -23,11 +23,6 @@ func Login(context *gin.Context) {
 
 	valid := validation.Validation{}
 
-	//a := model.Auth{
-	//	Username: loginBO.Username,
-	//	Password: loginBO.Password,
-	//}
-
 	ok, _ := valid.Valid(&loginBO)
 
 	data := make(map[string]interface{})
@@ -60,7 +55,20 @@ func Login(context *gin.Context) {
 }
 
 // 注册
-func Register(context *gin.Context) {}
+func Register(context *gin.Context) {
+	var registerBO bo.RegisterBO
+
+	if err := context.BindJSON(&registerBO); err != nil {
+		context.JSON(http.StatusOK, response.ErrorParams.WithMsg(err.Error()))
+		return
+	}
+
+	res := model.Register(&registerBO)
+
+	if res {
+		context.JSON(http.StatusOK, response.OK)
+	}
+}
 
 // 获取用户信息
 func GetUserInfo(context *gin.Context) {
