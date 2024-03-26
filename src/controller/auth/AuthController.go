@@ -63,6 +63,14 @@ func Register(context *gin.Context) {
 		return
 	}
 
+	pass, err := util.HashPassword(registerBO.Password)
+
+	if err != nil {
+		context.JSON(http.StatusOK, response.ErrorParams.WithMsg("注册失败, Error password"))
+		return
+	}
+	registerBO.Password = pass
+
 	res := model.Register(&registerBO)
 
 	if res {
@@ -73,4 +81,5 @@ func Register(context *gin.Context) {
 // 获取用户信息
 func GetUserInfo(context *gin.Context) {
 	// context.Request.Header.Get("username")
+	context.JSON(http.StatusOK, response.OK)
 }
