@@ -2,7 +2,7 @@ package model
 
 import "bs-server/src/bo"
 
-type Auth struct {
+type User struct {
 	ID       int    `gorm:"primary_key" json:"id"`
 	Username string `json:"username"`
 	Password string `json:"password"`
@@ -11,14 +11,14 @@ type Auth struct {
 }
 
 func CheckAuth(username, password string) bool {
-	var auth Auth
+	var user User
 
-	db.Select("id").Where(Auth{
+	res := db.Where(User{
 		Username: username,
 		Password: password,
-	}).First(&auth)
+	}).First(&user)
 
-	return auth.Username != ""
+	return res.Error == nil
 }
 
 func Register(user *bo.RegisterBO) bool {
